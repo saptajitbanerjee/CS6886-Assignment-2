@@ -74,7 +74,7 @@ print(weight_storage_report(q_model))
 **Q3 -- bit-width sweep:**
 ```bash
 python sweep.py --checkpoint-in checkpoints/baseline.keras --project cs6886-assignment2
-
+```
 **Q4 -- final chosen-config report:**
 
 First, actually QAT-train and save the chosen config as a checkpoint (this
