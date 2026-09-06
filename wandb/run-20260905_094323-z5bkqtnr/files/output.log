@@ -1,0 +1,27 @@
+Epoch 1/5
+[1m1563/1563[0m [32m━━━━━━━━━━━━━━━━━━━━[0m[37m[0m [1m299s[0m 129ms/step - accuracy: 0.0993 - loss: 2.4674 - val_accuracy: 0.1000 - val_loss: 2.3042
+Epoch 2/5
+[1m1563/1563[0m [32m━━━━━━━━━━━━━━━━━━━━[0m[37m[0m [1m113s[0m 72ms/step - accuracy: 0.1002 - loss: 2.3045 - val_accuracy: 0.1000 - val_loss: 2.3035
+Epoch 3/5
+[1m1563/1563[0m [32m━━━━━━━━━━━━━━━━━━━━[0m[37m[0m [1m115s[0m 73ms/step - accuracy: 0.1000 - loss: 2.3036 - val_accuracy: 0.1000 - val_loss: 2.3031
+Epoch 4/5
+[1m1563/1563[0m [32m━━━━━━━━━━━━━━━━━━━━[0m[37m[0m [1m115s[0m 74ms/step - accuracy: 0.1000 - loss: 2.3032 - val_accuracy: 0.1000 - val_loss: 2.3029
+Epoch 5/5
+[1m1563/1563[0m [32m━━━━━━━━━━━━━━━━━━━━[0m[37m[0m [1m115s[0m 73ms/step - accuracy: 0.1000 - loss: 2.3031 - val_accuracy: 0.1000 - val_loss: 2.3027
+[1m313/313[0m [32m━━━━━━━━━━━━━━━━━━━━[0m[37m[0m [1m19s[0m 35ms/step - accuracy: 0.1000 - loss: 2.3027
+Traceback (most recent call last):
+  File "/home/id25s001/CS6886_Assignment_2/sweep.py", line 132, in <module>
+    main()
+  File "/home/id25s001/CS6886_Assignment_2/sweep.py", line 128, in main
+    run_sweep(args)
+  File "/home/id25s001/CS6886_Assignment_2/sweep.py", line 97, in run_sweep
+    raise RuntimeError(
+RuntimeError: quantized_acc collapsed to near-chance (0.1000) for weight_bits=2, activation_bits=4 -- stop and check fold_bn_fp16/build_quantized_model rather than logging this point
+Traceback (most recent call last):
+  File "/home/id25s001/CS6886_Assignment_2/sweep.py", line 132, in <module>
+    main()
+  File "/home/id25s001/CS6886_Assignment_2/sweep.py", line 128, in main
+    run_sweep(args)
+  File "/home/id25s001/CS6886_Assignment_2/sweep.py", line 97, in run_sweep
+    raise RuntimeError(
+RuntimeError: quantized_acc collapsed to near-chance (0.1000) for weight_bits=2, activation_bits=4 -- stop and check fold_bn_fp16/build_quantized_model rather than logging this point

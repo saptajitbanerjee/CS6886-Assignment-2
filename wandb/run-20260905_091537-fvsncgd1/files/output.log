@@ -1,0 +1,23 @@
+Epoch 1/5
+[1m1563/1563[0m [32m━━━━━━━━━━━━━━━━━━━━[0m[37m[0m [1m300s[0m 128ms/step - accuracy: 0.1024 - loss: 2.3137 - val_accuracy: 0.1000 - val_loss: 2.3034
+Epoch 2/5
+[1m1563/1563[0m [32m━━━━━━━━━━━━━━━━━━━━[0m[37m[0m [1m112s[0m 72ms/step - accuracy: 0.0988 - loss: 2.3127 - val_accuracy: 0.1000 - val_loss: 2.3044
+Epoch 3/5
+[1m1563/1563[0m [32m━━━━━━━━━━━━━━━━━━━━[0m[37m[0m [1m117s[0m 75ms/step - accuracy: 0.0990 - loss: 2.3042 - val_accuracy: 0.1000 - val_loss: 2.3041
+[1m313/313[0m [32m━━━━━━━━━━━━━━━━━━━━[0m[37m[0m [1m20s[0m 36ms/step - accuracy: 0.1000 - loss: 2.3034
+Traceback (most recent call last):
+  File "/home/id25s001/CS6886_Assignment_2/sweep.py", line 133, in <module>
+    main()
+  File "/home/id25s001/CS6886_Assignment_2/sweep.py", line 129, in main
+    run_sweep(args)
+  File "/home/id25s001/CS6886_Assignment_2/sweep.py", line 98, in run_sweep
+    raise RuntimeError(
+RuntimeError: quantized_acc collapsed to near-chance (0.1000) for weight_bits=1, activation_bits=1 -- stop and check fold_bn_fp16/build_quantized_model rather than logging this point
+Traceback (most recent call last):
+  File "/home/id25s001/CS6886_Assignment_2/sweep.py", line 133, in <module>
+    main()
+  File "/home/id25s001/CS6886_Assignment_2/sweep.py", line 129, in main
+    run_sweep(args)
+  File "/home/id25s001/CS6886_Assignment_2/sweep.py", line 98, in run_sweep
+    raise RuntimeError(
+RuntimeError: quantized_acc collapsed to near-chance (0.1000) for weight_bits=1, activation_bits=1 -- stop and check fold_bn_fp16/build_quantized_model rather than logging this point

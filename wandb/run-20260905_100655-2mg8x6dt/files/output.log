@@ -1,0 +1,74 @@
+Epoch 1/5
+[1m1563/1563[0m [32m━━━━━━━━━━━━━━━━━━━━[0m[37m[0m [1m300s[0m 128ms/step - accuracy: 0.4242 - loss: 1.5885 - val_accuracy: 0.6229 - val_loss: 1.1467
+Epoch 2/5
+[1m1563/1563[0m [32m━━━━━━━━━━━━━━━━━━━━[0m[37m[0m [1m112s[0m 72ms/step - accuracy: 0.6663 - loss: 0.9961 - val_accuracy: 0.7111 - val_loss: 0.8393
+Epoch 3/5
+[1m1563/1563[0m [32m━━━━━━━━━━━━━━━━━━━━[0m[37m[0m [1m115s[0m 74ms/step - accuracy: 0.6952 - loss: 0.9023 - val_accuracy: 0.7222 - val_loss: 0.8016
+Epoch 4/5
+[1m1563/1563[0m [32m━━━━━━━━━━━━━━━━━━━━[0m[37m[0m [1m114s[0m 73ms/step - accuracy: 0.6890 - loss: 0.9246 - val_accuracy: 0.7217 - val_loss: 0.8075
+Epoch 5/5
+[1m  69/1563[0m [37m━━━━━━━━━━━━━━━━━━━━[0m [1m1:40[0m 67ms/step - accuracy: 0.7047 - loss: 0.8593
+Traceback (most recent call last):
+  File "/home/id25s001/CS6886_Assignment_2/sweep.py", line 132, in <module>
+    main()
+  File "/home/id25s001/CS6886_Assignment_2/sweep.py", line 128, in main
+    run_sweep(args)
+  File "/home/id25s001/CS6886_Assignment_2/sweep.py", line 78, in run_sweep
+    q_model.fit(
+  File "/home/id25s001/.local/lib/python3.10/site-packages/keras/src/utils/traceback_utils.py", line 117, in error_handler
+    return fn(*args, **kwargs)
+  File "/home/id25s001/.local/lib/python3.10/site-packages/keras/src/backend/tensorflow/trainer.py", line 399, in fit
+    logs = self.train_function(iterator)
+  File "/home/id25s001/.local/lib/python3.10/site-packages/keras/src/backend/tensorflow/trainer.py", line 241, in function
+    opt_outputs = multi_step_on_iterator(iterator)
+  File "/home/id25s001/.local/lib/python3.10/site-packages/tensorflow/python/util/traceback_utils.py", line 150, in error_handler
+    return fn(*args, **kwargs)
+  File "/home/id25s001/.local/lib/python3.10/site-packages/tensorflow/python/eager/polymorphic_function/polymorphic_function.py", line 833, in __call__
+    result = self._call(*args, **kwds)
+  File "/home/id25s001/.local/lib/python3.10/site-packages/tensorflow/python/eager/polymorphic_function/polymorphic_function.py", line 878, in _call
+    results = tracing_compilation.call_function(
+  File "/home/id25s001/.local/lib/python3.10/site-packages/tensorflow/python/eager/polymorphic_function/tracing_compilation.py", line 139, in call_function
+    return function._call_flat(  # pylint: disable=protected-access
+  File "/home/id25s001/.local/lib/python3.10/site-packages/tensorflow/python/eager/polymorphic_function/concrete_function.py", line 1322, in _call_flat
+    return self._inference_function.call_preflattened(args)
+  File "/home/id25s001/.local/lib/python3.10/site-packages/tensorflow/python/eager/polymorphic_function/atomic_function.py", line 216, in call_preflattened
+    flat_outputs = self.call_flat(*args)
+  File "/home/id25s001/.local/lib/python3.10/site-packages/tensorflow/python/eager/polymorphic_function/atomic_function.py", line 251, in call_flat
+    outputs = self._bound_context.call_function(
+  File "/home/id25s001/.local/lib/python3.10/site-packages/tensorflow/python/eager/context.py", line 1552, in call_function
+    outputs = execute.execute(
+  File "/home/id25s001/.local/lib/python3.10/site-packages/tensorflow/python/eager/execute.py", line 53, in quick_execute
+    tensors = pywrap_tfe.TFE_Py_Execute(ctx._handle, device_name, op_name,
+KeyboardInterrupt
+Traceback (most recent call last):
+  File "/home/id25s001/CS6886_Assignment_2/sweep.py", line 132, in <module>
+    main()
+  File "/home/id25s001/CS6886_Assignment_2/sweep.py", line 128, in main
+    run_sweep(args)
+  File "/home/id25s001/CS6886_Assignment_2/sweep.py", line 78, in run_sweep
+    q_model.fit(
+  File "/home/id25s001/.local/lib/python3.10/site-packages/keras/src/utils/traceback_utils.py", line 117, in error_handler
+    return fn(*args, **kwargs)
+  File "/home/id25s001/.local/lib/python3.10/site-packages/keras/src/backend/tensorflow/trainer.py", line 399, in fit
+    logs = self.train_function(iterator)
+  File "/home/id25s001/.local/lib/python3.10/site-packages/keras/src/backend/tensorflow/trainer.py", line 241, in function
+    opt_outputs = multi_step_on_iterator(iterator)
+  File "/home/id25s001/.local/lib/python3.10/site-packages/tensorflow/python/util/traceback_utils.py", line 150, in error_handler
+    return fn(*args, **kwargs)
+  File "/home/id25s001/.local/lib/python3.10/site-packages/tensorflow/python/eager/polymorphic_function/polymorphic_function.py", line 833, in __call__
+    result = self._call(*args, **kwds)
+  File "/home/id25s001/.local/lib/python3.10/site-packages/tensorflow/python/eager/polymorphic_function/polymorphic_function.py", line 878, in _call
+    results = tracing_compilation.call_function(
+  File "/home/id25s001/.local/lib/python3.10/site-packages/tensorflow/python/eager/polymorphic_function/tracing_compilation.py", line 139, in call_function
+    return function._call_flat(  # pylint: disable=protected-access
+  File "/home/id25s001/.local/lib/python3.10/site-packages/tensorflow/python/eager/polymorphic_function/concrete_function.py", line 1322, in _call_flat
+    return self._inference_function.call_preflattened(args)
+  File "/home/id25s001/.local/lib/python3.10/site-packages/tensorflow/python/eager/polymorphic_function/atomic_function.py", line 216, in call_preflattened
+    flat_outputs = self.call_flat(*args)
+  File "/home/id25s001/.local/lib/python3.10/site-packages/tensorflow/python/eager/polymorphic_function/atomic_function.py", line 251, in call_flat
+    outputs = self._bound_context.call_function(
+  File "/home/id25s001/.local/lib/python3.10/site-packages/tensorflow/python/eager/context.py", line 1552, in call_function
+    outputs = execute.execute(
+  File "/home/id25s001/.local/lib/python3.10/site-packages/tensorflow/python/eager/execute.py", line 53, in quick_execute
+    tensors = pywrap_tfe.TFE_Py_Execute(ctx._handle, device_name, op_name,
+KeyboardInterrupt

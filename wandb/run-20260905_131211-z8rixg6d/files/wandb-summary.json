@@ -1,0 +1,1 @@
+{"weight_quant_bits":8,"activation_quant_bits":6,"model_size_mb":2.5181045532226562,"quantized_acc":0.8996999859809875,"_wandb":{"runtime":549},"_runtime":549,"compression_ratio":3.6709892047640835,"_timestamp":1.7886144823242056e+09,"_step":0}

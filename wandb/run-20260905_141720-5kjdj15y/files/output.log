@@ -1,0 +1,40 @@
+Epoch 1/5
+[1m1563/1563[0m [32m━━━━━━━━━━━━━━━━━━━━[0m[37m[0m [1m314s[0m 132ms/step - accuracy: 0.3740 - loss: 1.7022 - val_accuracy: 0.5614 - val_loss: 1.2361
+Epoch 2/5
+[1m 782/1563[0m [32m━━━━━━━━━━[0m[37m━━━━━━━━━━[0m [1m51s[0m 66ms/step - accuracy: 0.5967 - loss: 1.1830
+Traceback (most recent call last):
+  File "/home/id25s001/CS6886_Assignment_2/sweep.py", line 128, in <module>
+    main()
+  File "/home/id25s001/CS6886_Assignment_2/sweep.py", line 124, in main
+    run_sweep(args)
+  File "/home/id25s001/CS6886_Assignment_2/sweep.py", line 78, in run_sweep
+    q_model.fit(
+  File "/home/id25s001/.local/lib/python3.10/site-packages/keras/src/utils/traceback_utils.py", line 117, in error_handler
+    return fn(*args, **kwargs)
+  File "/home/id25s001/.local/lib/python3.10/site-packages/keras/src/backend/tensorflow/trainer.py", line 399, in fit
+    logs = self.train_function(iterator)
+  File "/home/id25s001/.local/lib/python3.10/site-packages/keras/src/backend/tensorflow/trainer.py", line 242, in function
+    if not opt_outputs.has_value():
+  File "/home/id25s001/.local/lib/python3.10/site-packages/tensorflow/python/data/ops/optional_ops.py", line 176, in has_value
+    return gen_optional_ops.optional_has_value(
+  File "/home/id25s001/.local/lib/python3.10/site-packages/tensorflow/python/ops/gen_optional_ops.py", line 172, in optional_has_value
+    _result = pywrap_tfe.TFE_Py_FastPathExecute(
+KeyboardInterrupt
+Traceback (most recent call last):
+  File "/home/id25s001/CS6886_Assignment_2/sweep.py", line 128, in <module>
+    main()
+  File "/home/id25s001/CS6886_Assignment_2/sweep.py", line 124, in main
+    run_sweep(args)
+  File "/home/id25s001/CS6886_Assignment_2/sweep.py", line 78, in run_sweep
+    q_model.fit(
+  File "/home/id25s001/.local/lib/python3.10/site-packages/keras/src/utils/traceback_utils.py", line 117, in error_handler
+    return fn(*args, **kwargs)
+  File "/home/id25s001/.local/lib/python3.10/site-packages/keras/src/backend/tensorflow/trainer.py", line 399, in fit
+    logs = self.train_function(iterator)
+  File "/home/id25s001/.local/lib/python3.10/site-packages/keras/src/backend/tensorflow/trainer.py", line 242, in function
+    if not opt_outputs.has_value():
+  File "/home/id25s001/.local/lib/python3.10/site-packages/tensorflow/python/data/ops/optional_ops.py", line 176, in has_value
+    return gen_optional_ops.optional_has_value(
+  File "/home/id25s001/.local/lib/python3.10/site-packages/tensorflow/python/ops/gen_optional_ops.py", line 172, in optional_has_value
+    _result = pywrap_tfe.TFE_Py_FastPathExecute(
+KeyboardInterrupt

@@ -1,0 +1,24 @@
+2026-09-05 09:30:17,019 INFO    MainThread:3522037 [wandb_setup.py:_flush():81] Current SDK version is 0.28.0
+2026-09-05 09:30:17,020 INFO    MainThread:3522037 [wandb_setup.py:_flush():81] Configure stats pid to 3522037
+2026-09-05 09:30:17,020 INFO    MainThread:3522037 [wandb_setup.py:_flush():81] Loading settings from environment variables
+2026-09-05 09:30:17,020 INFO    MainThread:3522037 [wandb_init.py:setup_run_log_directory():725] Logging user logs to /home/id25s001/CS6886_Assignment_2/wandb/run-20260905_093017-3rdg7p6s/logs/debug.log
+2026-09-05 09:30:17,020 INFO    MainThread:3522037 [wandb_init.py:setup_run_log_directory():726] Logging internal logs to /home/id25s001/CS6886_Assignment_2/wandb/run-20260905_093017-3rdg7p6s/logs/debug-internal.log
+2026-09-05 09:30:17,020 INFO    MainThread:3522037 [wandb_init.py:init():768] calling init triggers
+2026-09-05 09:30:17,020 INFO    MainThread:3522037 [wandb_init.py:init():773] wandb.init called with sweep_config: {}
+config: {'weight_bits': 2, 'activation_bits': 2, 'lr': 2e-06, '_wandb': {}}
+2026-09-05 09:30:17,020 INFO    MainThread:3522037 [wandb_init.py:init():816] starting backend
+2026-09-05 09:30:17,020 INFO    MainThread:3522037 [wandb_init.py:init():831] sending inform_init request
+2026-09-05 09:30:17,569 INFO    MainThread:3522037 [wandb_init.py:init():836] backend started and connected
+2026-09-05 09:30:17,588 INFO    MainThread:3522037 [wandb_init.py:init():906] updated telemetry
+2026-09-05 09:30:17,590 INFO    MainThread:3522037 [wandb_init.py:init():929] communicating run to backend with 90.0 second timeout
+2026-09-05 09:30:18,208 INFO    MainThread:3522037 [wandb_init.py:init():974] starting run threads in backend
+2026-09-05 09:30:18,461 INFO    MainThread:3522037 [wandb_run.py:_console_start():2523] atexit reg
+2026-09-05 09:30:18,461 INFO    MainThread:3522037 [wandb_run.py:_redirect():2373] redirect: wrap_raw
+2026-09-05 09:30:18,461 INFO    MainThread:3522037 [wandb_run.py:_redirect():2442] Wrapping output streams.
+2026-09-05 09:30:18,462 INFO    MainThread:3522037 [wandb_run.py:_redirect():2465] Redirects installed.
+2026-09-05 09:30:18,464 INFO    MainThread:3522037 [wandb_init.py:init():1012] run started, returning control to user process
+2026-09-05 09:43:20,681 INFO    MainThread:3522037 [wandb_run.py:_finish():2285] finishing run id25s001-iit-madras-foundation/cs6886-assignment2/3rdg7p6s
+2026-09-05 09:43:20,681 INFO    MainThread:3522037 [wandb_run.py:_atexit_cleanup():2490] got exitcode: 0
+2026-09-05 09:43:20,682 INFO    MainThread:3522037 [wandb_run.py:_restore():2472] restore
+2026-09-05 09:43:20,682 INFO    MainThread:3522037 [wandb_run.py:_restore():2478] restore done
+2026-09-05 09:43:22,646 INFO    MainThread:3522037 [wandb_run.py:_footer_sync_info():3895] logging synced files

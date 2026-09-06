@@ -1,0 +1,21 @@
+2026-09-05 11:55:49,253 INFO    MainThread:3546508 [wandb_init.py:setup_run_log_directory():725] Logging user logs to /home/id25s001/CS6886_Assignment_2/wandb/run-20260905_115549-trn6ge1y/logs/debug.log
+2026-09-05 11:55:49,253 INFO    MainThread:3546508 [wandb_init.py:setup_run_log_directory():726] Logging internal logs to /home/id25s001/CS6886_Assignment_2/wandb/run-20260905_115549-trn6ge1y/logs/debug-internal.log
+2026-09-05 11:55:49,253 INFO    MainThread:3546508 [wandb_init.py:init():768] calling init triggers
+2026-09-05 11:55:49,253 INFO    MainThread:3546508 [wandb_init.py:init():773] wandb.init called with sweep_config: {}
+config: {'weight_bits': 4, 'activation_bits': 6, 'lr': 0.0001, '_wandb': {}}
+2026-09-05 11:55:49,253 INFO    MainThread:3546508 [wandb_init.py:init():816] starting backend
+2026-09-05 11:55:49,254 INFO    MainThread:3546508 [wandb_init.py:init():831] sending inform_init request
+2026-09-05 11:55:49,811 INFO    MainThread:3546508 [wandb_init.py:init():836] backend started and connected
+2026-09-05 11:55:49,820 INFO    MainThread:3546508 [wandb_init.py:init():906] updated telemetry
+2026-09-05 11:55:49,822 INFO    MainThread:3546508 [wandb_init.py:init():929] communicating run to backend with 90.0 second timeout
+2026-09-05 11:55:50,413 INFO    MainThread:3546508 [wandb_init.py:init():974] starting run threads in backend
+2026-09-05 11:55:50,679 INFO    MainThread:3546508 [wandb_run.py:_console_start():2523] atexit reg
+2026-09-05 11:55:50,679 INFO    MainThread:3546508 [wandb_run.py:_redirect():2373] redirect: wrap_raw
+2026-09-05 11:55:50,680 INFO    MainThread:3546508 [wandb_run.py:_redirect():2442] Wrapping output streams.
+2026-09-05 11:55:50,680 INFO    MainThread:3546508 [wandb_run.py:_redirect():2465] Redirects installed.
+2026-09-05 11:55:50,682 INFO    MainThread:3546508 [wandb_init.py:init():1012] run started, returning control to user process
+2026-09-05 12:08:44,286 INFO    MainThread:3546508 [wandb_run.py:_finish():2285] finishing run id25s001-iit-madras-foundation/cs6886-assignment2/trn6ge1y
+2026-09-05 12:08:44,286 INFO    MainThread:3546508 [wandb_run.py:_atexit_cleanup():2490] got exitcode: 0
+2026-09-05 12:08:44,287 INFO    MainThread:3546508 [wandb_run.py:_restore():2472] restore
+2026-09-05 12:08:44,287 INFO    MainThread:3546508 [wandb_run.py:_restore():2478] restore done
+2026-09-05 12:08:46,995 INFO    MainThread:3546508 [wandb_run.py:_footer_sync_info():3895] logging synced files

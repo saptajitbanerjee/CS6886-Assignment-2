@@ -1,0 +1,7 @@
+# Pin these to your actual working environment via `pip freeze` before
+# submitting -- these are sensible minimums, not verified exact versions.
+tensorflow>=2.15,<2.18
+numpy>=1.23
+matplotlib>=3.7
+wandb>=0.16
+wandb-workspaces>=0.1   # only needed for sweep_report.py's Parallel Coordinates chart
