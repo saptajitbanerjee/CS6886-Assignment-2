@@ -22,8 +22,7 @@ accuracy (Q3), and report the final chosen config (Q4).
 pip install -r requirements.txt
 ```
 
-Needs a Wandb account + API key (`wandb login`) for `sweep.py` /
-`sweep_report.py` only -- `train.py` alone has no Wandb dependency.
+Needs a Wandb account + API key (`wandb login`) for `sweep.py` only -- `train.py` alone has no Wandb dependency.
 
 ## Seed configuration
 
