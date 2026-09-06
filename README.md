@@ -108,10 +108,10 @@ compression_report(baseline, "checkpoints/quantized.keras", test_ds, activation_
   straight-through estimator. Every BatchNorm layer in the backbone is
   rebuilt as FP16, regardless of whether it follows an FP16-bucket conv or
   an INT4 pointwise conv.
-- **`data_augmentation` is defined in `data.py` but not applied by default**
-  (`model.build_baseline_model(use_augmentation=False)`) -- matches what
+- **`data_augmentation` is defined in `data.py` and applied by default**
+  (`model.build_baseline_model(use_augmentation=True)`) -- matches what
   was actually trained/validated in this project's history. Flip the flag
-  if you want it included.
+  if you want it excluded.
 - **Always build a QAT model from the original fp32 baseline**, never from
   an already-quantized model -- `sweep.py` and `train.py --mode qat` both
   require an explicit `--checkpoint-in` for exactly this reason.
