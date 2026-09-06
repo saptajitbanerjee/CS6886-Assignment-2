@@ -1,4 +1,5 @@
 tensorflow>=2.15,<2.18
-numpy>=1.23
+numpy>=2.52
 matplotlib>=3.7
 wandb>=0.16
+wandb_workspaces==0.4.11
