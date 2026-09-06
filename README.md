@@ -15,7 +15,6 @@ accuracy (Q3), and report the final chosen config (Q4).
 | `train.py` | CLI: train the Q1 baseline, or QAT-fine-tune a quantized model |
 | `evaluate.py` | Q1(c) accuracy/curves/confusions; Q4 full compression report |
 | `sweep.py` | Q3: bit-width sweep, Wandb logging |
-| `sweep_report.py` | Q3: generates the actual Wandb Parallel Coordinates chart (a report panel, not just logged metrics) |
 
 ## Setup
 
