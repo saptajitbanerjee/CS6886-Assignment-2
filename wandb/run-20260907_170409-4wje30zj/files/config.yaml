@@ -1,0 +1,85 @@
+_wandb:
+    value:
+        cli_version: 0.28.0
+        e:
+            uwzj0w496abkihgvquvolo3t8ybyheho:
+                args:
+                    - --checkpoint-in
+                    - checkpoints/baseline.keras
+                    - --project
+                    - cs6886-assignment2
+                codePath: sweep.py
+                codePathLocal: sweep.py
+                cpu_count: 20
+                cpu_count_logical: 40
+                cudaVersion: "12.2"
+                disk:
+                    /:
+                        total: "234039422976"
+                        used: "208132067328"
+                email: id25s001@smail.iitm.ac.in
+                executable: /usr/bin/python3
+                git:
+                    commit: a039e08dc0ec1ddd79b8f0663b00a9d56715e1b6
+                    remote: https://github.com/saptajitbanerjee/CS6886-Assignment-2.git
+                gpu: NVIDIA GeForce GTX 1080 Ti
+                gpu_count: 4
+                gpu_nvidia:
+                    - architecture: Pascal
+                      cudaCores: 3584
+                      memoryTotal: "11811160064"
+                      name: NVIDIA GeForce GTX 1080 Ti
+                      uuid: GPU-cdeefa17-d5c4-bf51-15de-048f84c9c228
+                    - architecture: Pascal
+                      cudaCores: 3584
+                      memoryTotal: "11811160064"
+                      name: NVIDIA GeForce GTX 1080 Ti
+                      uuid: GPU-e4f1baff-dc90-4107-e5e0-6b7bfb9e6d68
+                    - architecture: Pascal
+                      cudaCores: 3584
+                      memoryTotal: "11811160064"
+                      name: NVIDIA GeForce GTX 1080 Ti
+                      uuid: GPU-7cd10988-e9e6-7e1c-b496-bd8642739e13
+                    - architecture: Pascal
+                      cudaCores: 3584
+                      memoryTotal: "11811160064"
+                      name: NVIDIA GeForce GTX 1080 Ti
+                      uuid: GPU-b701a6bb-1912-6f4e-6bbb-8d1f87805edc
+                host: risegpu2
+                memory:
+                    total: "270323687424"
+                os: Linux-5.15.0-179-generic-x86_64-with-glibc2.35
+                program: /home/id25s001/CS6886-Assignment-2/sweep.py
+                python: CPython 3.10.12
+                root: /home/id25s001/CS6886-Assignment-2
+                startedAt: "2026-09-07T17:04:09.821688Z"
+                writerId: uwzj0w496abkihgvquvolo3t8ybyheho
+        m: []
+        python_version: 3.10.12
+        t:
+            "1":
+                - 2
+                - 3
+                - 5
+                - 53
+            "2":
+                - 2
+                - 3
+                - 5
+                - 53
+            "3":
+                - 2
+                - 13
+                - 16
+            "4": 3.10.12
+            "5": 0.28.0
+            "10":
+                - 20
+            "12": 0.28.0
+            "13": linux-x86_64
+activation_bits:
+    value: 6
+lr:
+    value: 0.0001
+weight_bits:
+    value: 6

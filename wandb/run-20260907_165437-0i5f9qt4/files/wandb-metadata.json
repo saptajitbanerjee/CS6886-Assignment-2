@@ -1,0 +1,67 @@
+{
+  "os": "Linux-5.15.0-179-generic-x86_64-with-glibc2.35",
+  "python": "CPython 3.10.12",
+  "startedAt": "2026-09-07T16:54:37.151473Z",
+  "args": [
+    "--checkpoint-in",
+    "checkpoints/baseline.keras",
+    "--project",
+    "cs6886-assignment2"
+  ],
+  "program": "/home/id25s001/CS6886-Assignment-2/sweep.py",
+  "codePath": "sweep.py",
+  "codePathLocal": "sweep.py",
+  "git": {
+    "remote": "https://github.com/saptajitbanerjee/CS6886-Assignment-2.git",
+    "commit": "a039e08dc0ec1ddd79b8f0663b00a9d56715e1b6"
+  },
+  "email": "id25s001@smail.iitm.ac.in",
+  "root": "/home/id25s001/CS6886-Assignment-2",
+  "host": "risegpu2",
+  "executable": "/usr/bin/python3",
+  "cpu_count": 20,
+  "cpu_count_logical": 40,
+  "gpu": "NVIDIA GeForce GTX 1080 Ti",
+  "gpu_count": 4,
+  "disk": {
+    "/": {
+      "total": "234039422976",
+      "used": "208129826816"
+    }
+  },
+  "memory": {
+    "total": "270323687424"
+  },
+  "gpu_nvidia": [
+    {
+      "name": "NVIDIA GeForce GTX 1080 Ti",
+      "memoryTotal": "11811160064",
+      "cudaCores": 3584,
+      "architecture": "Pascal",
+      "uuid": "GPU-cdeefa17-d5c4-bf51-15de-048f84c9c228"
+    },
+    {
+      "name": "NVIDIA GeForce GTX 1080 Ti",
+      "memoryTotal": "11811160064",
+      "cudaCores": 3584,
+      "architecture": "Pascal",
+      "uuid": "GPU-e4f1baff-dc90-4107-e5e0-6b7bfb9e6d68"
+    },
+    {
+      "name": "NVIDIA GeForce GTX 1080 Ti",
+      "memoryTotal": "11811160064",
+      "cudaCores": 3584,
+      "architecture": "Pascal",
+      "uuid": "GPU-7cd10988-e9e6-7e1c-b496-bd8642739e13"
+    },
+    {
+      "name": "NVIDIA GeForce GTX 1080 Ti",
+      "memoryTotal": "11811160064",
+      "cudaCores": 3584,
+      "architecture": "Pascal",
+      "uuid": "GPU-b701a6bb-1912-6f4e-6bbb-8d1f87805edc"
+    }
+  ],
+  "cudaVersion": "12.2",
+  "writerId": "8wf4h8t2za1sh6xnlzit21yc4id4lxc1"
+}

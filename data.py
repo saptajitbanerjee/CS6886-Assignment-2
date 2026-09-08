@@ -51,13 +51,54 @@ def preprocess(image, label):
     return image, label[0]
 
 
-def build_datasets(batch_size: int = BATCH_SIZE):
-    """Builds train_ds/test_ds tf.data pipelines from CIFAR-10. Call
-    set_seed() before this if you need reproducible shuffling."""
-    (x_train, y_train), (x_test, y_test) = load_cifar10()
+VAL_SPLIT = 0.1  # fraction of the CIFAR-10 train split held out for validation
+
+
+def build_datasets(batch_size: int = BATCH_SIZE, val_split: float = VAL_SPLIT):
+    """Builds train_ds/val_ds/test_ds tf.data pipelines from CIFAR-10.
+
+    CIFAR-10's own train/test split (50k/10k) only gives you two sets, and
+    the test set is meant to be a final, untouched holdout -- it must never
+    be used for early stopping, model selection, or LR/config decisions
+    during training (that's what leaks test-set information into the
+    "trained" model and inflates its reported accuracy). So a validation
+    set is carved out of the 50k TRAIN images here (`val_split` fraction,
+    default 10% = 5k images), and the original 10k TEST images are kept
+    completely separate, only ever touched by evaluate.py /
+    weight_storage_report-style final reporting.
+
+    Split is done by shuffling indices with NumPy's global RNG -- call
+    set_seed() before this if you need that split to be reproducible.
+
+    Returns (train_ds, val_ds, test_ds). Pass train_ds/val_ds to
+    model.fit(..., validation_data=val_ds); only ever call
+    model.evaluate(test_ds) once you're done tuning/training, for the
+    final reported number.
+    """
+    (x_train_full, y_train_full), (x_test, y_test) = load_cifar10()
+
+    n_total = x_train_full.shape[0]
+    n_val = int(n_total * val_split)
+
+    # shuffle indices before splitting off validation, so val isn't just
+    # "the last N images in CIFAR-10's stored order" (which is grouped by
+    # class in the raw dataset)
+    indices = np.arange(n_total)
+    np.random.shuffle(indices)
+    val_idx, train_idx = indices[:n_val], indices[n_val:]
+
+    x_val, y_val = x_train_full[val_idx], y_train_full[val_idx]
+    x_train, y_train = x_train_full[train_idx], y_train_full[train_idx]
 
     train_ds = (
         tf.data.Dataset.from_tensor_slices((x_train, y_train))
+        .shuffle(len(x_train), reshuffle_each_iteration=True)
+        .map(preprocess, num_parallel_calls=tf.data.AUTOTUNE)
+        .batch(batch_size)
+        .prefetch(tf.data.AUTOTUNE)
+    )
+    val_ds = (
+        tf.data.Dataset.from_tensor_slices((x_val, y_val))
         .map(preprocess, num_parallel_calls=tf.data.AUTOTUNE)
         .batch(batch_size)
         .prefetch(tf.data.AUTOTUNE)
@@ -68,7 +109,7 @@ def build_datasets(batch_size: int = BATCH_SIZE):
         .batch(batch_size)
         .prefetch(tf.data.AUTOTUNE)
     )
-    return train_ds, test_ds
+    return train_ds, val_ds, test_ds
 
 
 def build_augmentation_layer():

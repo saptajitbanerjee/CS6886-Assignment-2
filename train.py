@@ -29,15 +29,19 @@ def train_baseline(args):
         optimizer=keras.optimizers.Adam(learning_rate=args.lr),
         metrics=["accuracy"],
     )
-    train_ds, test_ds = build_datasets()
-    early_stopping = keras.callbacks.EarlyStopping(patience=6, restore_best_weights=True)
+    # train_ds/val_ds drive fitting + early stopping; test_ds is held out
+    # untouched until the post-training evaluate() call below
+    train_ds, val_ds, test_ds = build_datasets()
+    early_stopping = keras.callbacks.EarlyStopping(patience=3, restore_best_weights=True)
 
     hist = model.fit(
-        train_ds, validation_data=test_ds,
-        epochs=args.epochs, shuffle=True,
+        train_ds, validation_data=val_ds,
+        epochs=args.epochs,
         callbacks=[early_stopping],
     )
-    return model, hist
+
+    test_loss, test_acc = model.evaluate(test_ds, verbose=1)
+    return model, hist, (test_loss, test_acc)
 
 
 def train_qat(args):
@@ -56,15 +60,19 @@ def train_qat(args):
         optimizer=keras.optimizers.Adam(learning_rate=args.lr),
         metrics=["accuracy"],
     )
-    train_ds, test_ds = build_datasets()
-    early_stopping = keras.callbacks.EarlyStopping(patience=6, restore_best_weights=True)
+    # same split discipline as the baseline: fit/early-stop against
+    # train_ds/val_ds only, test_ds stays untouched until evaluate() below
+    train_ds, val_ds, test_ds = build_datasets()
+    early_stopping = keras.callbacks.EarlyStopping(patience=3, restore_best_weights=True)
 
     hist = quantized_model.fit(
-        train_ds, validation_data=test_ds,
-        epochs=args.epochs, shuffle=True,
+        train_ds, validation_data=val_ds,
+        epochs=args.epochs,
         callbacks=[early_stopping],
     )
-    return quantized_model, hist
+
+    test_loss, test_acc = quantized_model.evaluate(test_ds, verbose=1)
+    return quantized_model, hist, (test_loss, test_acc)
 
 
 def main():
@@ -88,9 +96,9 @@ def main():
     set_seed(args.seed)
 
     if args.mode == "baseline":
-        model, hist = train_baseline(args)
+        model, hist, (test_loss, test_acc) = train_baseline(args)
     else:
-        model, hist = train_qat(args)
+        model, hist, (test_loss, test_acc) = train_qat(args)
 
     os.makedirs(os.path.dirname(args.out) or ".", exist_ok=True)
     model.save(args.out)
@@ -105,11 +113,17 @@ def main():
             "lr": args.lr,
             "weight_bits": args.weight_bits if args.mode == "qat" else None,
             "activation_bits": args.activation_bits if args.mode == "qat" else None,
+            # train/val curves from fit(); test_loss/test_acc below are the
+            # single post-training numbers from the held-out test set,
+            # never used for early stopping or any training decision
+            "test_loss": float(test_loss),
+            "test_accuracy": float(test_acc),
             **hist.history,
         }, f, indent=2)
 
     print(f"Saved model to {args.out}")
     print(f"Saved history to {history_path}")
+    print(f"Test loss/accuracy (held-out, post-training): {test_loss:.4f} / {test_acc:.4f}")
 
 
 if __name__ == "__main__":

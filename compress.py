@@ -1,3 +1,5 @@
+# --- START OF FILE compress.py ---
+
 """
 compress.py -- Q2 model compression: per-channel INT4 weight quantization
 (QAT, with a straight-through estimator), EMA-calibrated activation
@@ -94,6 +96,10 @@ def fake_quantize_per_channel(w, weight_bits, channel_axis=-1, eps=1e-8):
     w_min = tf.reduce_min(w_flat, axis=1)
     w_max = tf.reduce_max(w_flat, axis=1)
 
+    # FIX: Ensure 0.0 is exactly representable so 0-padding doesn't create bias artifacts
+    w_min = tf.minimum(w_min, 0.0)
+    w_max = tf.maximum(w_max, 0.0)
+
     scale = tf.maximum((w_max - w_min) / (qmax - qmin), eps)
     zero_point = _ste_round(qmin - w_min / scale)
     zero_point = tf.clip_by_value(zero_point, qmin, qmax)
@@ -135,16 +141,28 @@ class ActivationQuantMixin:
     def _quantize_activation(self, out, training):
         if self.activation_bits is None:
             return out
-        batch_min = tf.reduce_min(out)
-        batch_max = tf.reduce_max(out)
+        
         if training:
-            m = 0.9  # EMA momentum
-            self.act_min.assign(m * self.act_min + (1 - m) * batch_min)
-            self.act_max.assign(m * self.act_max + (1 - m) * batch_max)
-            use_min, use_max = batch_min, batch_max  # live batch range while training
-        else:
-            use_min, use_max = self.act_min, self.act_max  # frozen calibrated range
-        return fake_quantize_activation(out, self.activation_bits, use_min, use_max)
+            batch_min = tf.reduce_min(out)
+            batch_max = tf.reduce_max(out)
+            
+            # Smart EMA init: If min/max are still uninitialized defaults (0.0/1.0),
+            # snap instantly to the batch stats instead of climbing slowly.
+            is_init = tf.cast(
+                tf.logical_and(tf.equal(self.act_min, 0.0), tf.equal(self.act_max, 1.0)),
+                out.dtype
+            )
+            
+            m = tf.constant(0.99, dtype=out.dtype)
+            eff_m = m * (1.0 - is_init)  # Drops to 0.0 on the very first batch
+            
+            self.act_min.assign(eff_m * self.act_min + (1.0 - eff_m) * batch_min)
+            self.act_max.assign(eff_m * self.act_max + (1.0 - eff_m) * batch_max)
+
+        # FIX: ALWAYS use EMA for the quantization grid even during training. 
+        # Using batch_min/batch_max directly during training creates a dynamic 
+        # grid that shifts per batch causing a massive train/test mismatch.
+        return fake_quantize_activation(out, self.activation_bits, self.act_min, self.act_max)
 
 
 # ---------------------------------------------------------------------------
@@ -327,10 +345,18 @@ def _clone_fn(layer, weight_bits, activation_bits):
         # quantized conv, since they're a tiny fraction of total size
         config = layer.get_config()
         config["dtype"] = "float16"
+        # Discard regularizers to avoid float16 loss accumulation crashes.
+        config.pop("gamma_regularizer", None)
+        config.pop("beta_regularizer", None)
         return layer.__class__.from_config(config)
     if isinstance(layer, (Conv2D, DepthwiseConv2D)) and not _is_pointwise_conv(layer):
         config = layer.get_config()
         config["dtype"] = "float16"
+        # Prevent L2 regularization from generating a float16 loss tensor. 
+        # (TensorFlow crashes if trying to add float16 losses to float32 crossentropy).
+        config.pop("kernel_regularizer", None)
+        config.pop("depthwise_regularizer", None)
+        config.pop("bias_regularizer", None)
         return layer.__class__.from_config(config)
     return layer.__class__.from_config(layer.get_config())
 
@@ -448,6 +474,13 @@ def build_quantized_model(trained_model, weight_bits=4, activation_bits=8):
     new_dense128.load_from_dense(dense128)
 
     quantized_base.trainable = True
+    
+    # FIX: Freeze BatchNormalization layers during QAT so moving averages don't track the fake-quant noise. 
+    # Failing to do this guarantees severe accuracy drops during evaluation. 
+    for layer in quantized_base.layers:
+        if isinstance(layer, BatchNormalization):
+            layer.trainable = False
+
     return quantized_model
 
 

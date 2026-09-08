@@ -83,7 +83,7 @@ def build_baseline_model(
         weights="imagenet", include_top=False, input_shape=(224, 224, 3)
     )
     base_model = add_l2_regularizer(base_model, l2_lambda)
-    base_model.trainable = False
+    base_model.trainable = True
 
     seq_layers = []
     if use_augmentation:

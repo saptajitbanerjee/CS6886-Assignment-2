@@ -1,0 +1,1 @@
+{"_wandb":{"runtime":564},"model_size_mb":1.4268569946289062,"compression_ratio":6.478529149132985,"_step":0,"weight_quant_bits":4,"activation_quant_bits":4,"_runtime":564,"quantized_acc":0.8835999965667725,"_timestamp":1.7887989244286125e+09}

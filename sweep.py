@@ -26,17 +26,16 @@ from tensorflow import keras
 from data import build_datasets, set_seed
 from compress import build_quantized_model, weight_storage_report
 
-SWEEP_CONFIGS = [
-    {"weight_bits": 1, "activation_bits": 4},
-    {"weight_bits": 1, "activation_bits": 8},    
-    # {"weight_bits": 4, "activation_bits": 6},
-    # {"weight_bits": 4, "activation_bits": 8},
-    # {"weight_bits": 6, "activation_bits": 4},
-    # {"weight_bits": 6, "activation_bits": 6},
-    # {"weight_bits": 6, "activation_bits": 8},
-    # {"weight_bits": 8, "activation_bits": 4},
-    # {"weight_bits": 8, "activation_bits": 6},
-    # {"weight_bits": 8, "activation_bits": 8},
+SWEEP_CONFIGS = [  
+    {"weight_bits": 4, "activation_bits": 4},
+    {"weight_bits": 4, "activation_bits": 6},
+    {"weight_bits": 4, "activation_bits": 8},
+    {"weight_bits": 6, "activation_bits": 4},
+    {"weight_bits": 6, "activation_bits": 6},
+    {"weight_bits": 6, "activation_bits": 8},
+    {"weight_bits": 8, "activation_bits": 4},
+    {"weight_bits": 8, "activation_bits": 6},
+    {"weight_bits": 8, "activation_bits": 8},
 
 ]
 
@@ -56,7 +55,10 @@ DEFAULT_LR = 1e-4
 
 
 def run_sweep(args):
-    (train_ds, test_ds) = build_datasets()
+    # val_ds drives early stopping for every sweep point; test_ds is only
+    # ever touched once per config, after training, for the number that
+    # actually gets logged to Wandb -- same split discipline as train.py
+    train_ds, val_ds, test_ds = build_datasets()
     trained_model = keras.models.load_model(args.checkpoint_in)
     baseline_report = weight_storage_report(trained_model)
     baseline_bytes = baseline_report["total_bytes"]
@@ -77,11 +79,15 @@ def run_sweep(args):
             metrics=["accuracy"],
         )
         q_model.fit(
-            train_ds, validation_data=test_ds,
+            train_ds, validation_data=val_ds,
             epochs=args.epochs,
             callbacks=[keras.callbacks.EarlyStopping(patience=2, restore_best_weights=True)],
         )
 
+        # test_ds only appears here -- once per sweep point, after training
+        # is fully done (including early-stopping's restore_best_weights,
+        # which already used val_ds) -- so this number is a clean,
+        # untouched-holdout accuracy, not something the config was tuned on
         _, quantized_acc = q_model.evaluate(test_ds)
 
         # A near-chance accuracy (1/num_classes = 0.10 for CIFAR-10) after

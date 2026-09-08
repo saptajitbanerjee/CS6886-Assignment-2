@@ -9,7 +9,7 @@ accuracy (Q3), and report the final chosen config (Q4).
 
 | File | Covers |
 |---|---|
-| `data.py` | CIFAR-10 loading, tf.data pipeline, augmentation, global seed |
+| `data.py` | CIFAR-10 loading, train/val/test tf.data pipelines, augmentation, global seed |
 | `model.py` | Q1 baseline model: MobileNetV2 (frozen) + regularized head |
 | `compress.py` | Q2: fake-quant primitives, QAT layers, bucket rules, storage accounting |
 | `train.py` | CLI: train the Q1 baseline, or QAT-fine-tune a quantized model |
@@ -35,11 +35,28 @@ seed; if you need that too, additionally set
 `os.environ["TF_DETERMINISTIC_OPS"] = "1"` before importing TensorFlow
 (slower, so it's not on by default here).
 
+## Train / validation / test split
+
+`data.build_datasets()` returns three tf.data pipelines: `(train_ds, val_ds,
+test_ds)`. `val_ds` is carved out of CIFAR-10's 50k-image train split (10%
+by default -- see `data.VAL_SPLIT`); `test_ds` is CIFAR-10's original,
+untouched 10k-image test split.
+
+Both `train.py` and `sweep.py` fit against `train_ds`/`val_ds` only --
+`val_ds` drives early stopping (and, in `sweep.py`, config comparison
+during the run). `test_ds` is never passed to `.fit()` anywhere in this
+repo; it's only ever touched once, after training/early-stopping is fully
+done, to produce the single reported number for that run (`train.py`
+prints and saves `test_loss`/`test_accuracy` post-training; `sweep.py`
+logs `quantized_acc` from a post-training `test_ds` evaluation). This
+keeps the test set a genuine held-out check rather than something the
+model or hyperparameters were implicitly tuned against.
+
 ## Reproducing each question
 
 **Q1 -- baseline:**
 ```bash
-python train.py --mode baseline --epochs 50 --out checkpoints/baseline.keras
+python train.py --mode baseline --epochs 30 --out checkpoints/baseline.keras
 ```
 Then, in a Python shell or notebook:
 ```python
@@ -49,7 +66,7 @@ from evaluate import evaluate_model, confusion_report, plot_curves
 from tensorflow import keras
 
 model = keras.models.load_model("checkpoints/baseline.keras")
-_, test_ds = build_datasets()
+_, _, test_ds = build_datasets()
 evaluate_model(model, test_ds)
 confusion_report(model, test_ds)
 history = json.load(open("checkpoints/baseline_history.json"))
@@ -59,7 +76,7 @@ plot_curves(history, "loss_accuracy_curves.png")
 **Q2 -- quantize + QAT fine-tune, single config:**
 ```bash
 python train.py --mode qat --checkpoint-in checkpoints/baseline.keras \
-    --weight-bits 4 --activation-bits 8 --epochs 50 \
+    --weight-bits 4 --activation-bits 8 --epochs 15 \
     --out checkpoints/quantized.keras
 ```
 Then check the storage improvements:
@@ -83,7 +100,7 @@ below loads this file, it does not accept an in-memory, untrained model):
 ```bash
 python train.py --mode qat --checkpoint-in checkpoints/baseline.keras \
     --weight-bits 4 --activation-bits 8 --epochs 15 \
-    --out checkpoints/quantized_w4a8.keras
+    --out checkpoints/quantized.keras
 ```
 Then generate the report from the two saved checkpoints:
 ```python
@@ -92,7 +109,7 @@ from data import build_datasets
 from evaluate import compression_report
 
 baseline = keras.models.load_model("checkpoints/baseline.keras")
-_, test_ds = build_datasets()
+_, _, test_ds = build_datasets()
 
 compression_report(baseline, "checkpoints/quantized.keras", test_ds, activation_bits=8)
 ```

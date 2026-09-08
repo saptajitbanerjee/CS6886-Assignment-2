@@ -1,0 +1,25 @@
+Epoch 1/5
+Traceback (most recent call last):
+  File "/home/id25s001/CS6886-Assignment-2/sweep.py", line 135, in <module>
+    main()
+  File "/home/id25s001/CS6886-Assignment-2/sweep.py", line 131, in main
+    run_sweep(args)
+  File "/home/id25s001/CS6886-Assignment-2/sweep.py", line 81, in run_sweep
+    q_model.fit(
+  File "/home/id25s001/.local/lib/python3.10/site-packages/keras/src/utils/traceback_utils.py", line 122, in error_handler
+    raise e.with_traceback(filtered_tb) from None
+  File "/home/id25s001/.local/lib/python3.10/site-packages/keras/src/backend/tensorflow/core.py", line 153, in convert_to_tensor
+    return tf.convert_to_tensor(x, dtype=dtype)
+TypeError: Cannot convert a list containing a tensor of dtype <dtype: 'float16'> to <dtype: 'float32'> (Tensor is: <tf.Tensor 'Sum_18:0' shape=() dtype=float16>)
+Traceback (most recent call last):
+  File "/home/id25s001/CS6886-Assignment-2/sweep.py", line 135, in <module>
+    main()
+  File "/home/id25s001/CS6886-Assignment-2/sweep.py", line 131, in main
+    run_sweep(args)
+  File "/home/id25s001/CS6886-Assignment-2/sweep.py", line 81, in run_sweep
+    q_model.fit(
+  File "/home/id25s001/.local/lib/python3.10/site-packages/keras/src/utils/traceback_utils.py", line 122, in error_handler
+    raise e.with_traceback(filtered_tb) from None
+  File "/home/id25s001/.local/lib/python3.10/site-packages/keras/src/backend/tensorflow/core.py", line 153, in convert_to_tensor
+    return tf.convert_to_tensor(x, dtype=dtype)
+TypeError: Cannot convert a list containing a tensor of dtype <dtype: 'float16'> to <dtype: 'float32'> (Tensor is: <tf.Tensor 'Sum_18:0' shape=() dtype=float16>)
